@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Image, ImageStyle, StyleProp, View } from 'react-native';
-import { cacheImage, cachedImageUrl as findCachedImageUrl } from '../../models/ImageCache';
+import { cacheImage, cachedImageUrl as findCachedImageUrl } from '../../api/ImageCache';
 
 export function CachedImage(props: {
   source: {

@@ -3,7 +3,7 @@ import { Animated, View } from 'react-native';
 import { imageUrl } from '../api/ImagesRepository';
 import { ImageDetailsProps } from './common/Navigation';
 import { ColorSchema } from './styles/ColorSchema';
-import { buildImageUrl } from '../models/ImageCache';
+import { buildImageUrl } from '../api/ImageCache';
 
 export function ImageDetails(props: ImageDetailsProps) {
   const images = props.route.params.images.map((i) => {
