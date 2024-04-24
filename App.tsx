@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-    SafeAreaView,
-    StatusBar
+  SafeAreaView,
+  StatusBar
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,35 +17,35 @@ import { ColorSchema } from './react/ui/styles/ColorSchema';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-    setupAxios()
+  setupAxios()
 
-    return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar
-                backgroundColor={ColorSchema.lightBlueBackground}
-            />
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar
+        backgroundColor={ColorSchema.lightBlueBackground}
+      />
 
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="DatesList"
-                        component={DatesList}
-                        options={{ headerShown: false }}
-                    />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="DatesList"
+            component={DatesList}
+            options={{ headerShown: false }}
+          />
 
-                    <Stack.Screen
-                        name="ImagesList"
-                        component={ImageList}
-                        options={{ headerShown: false }}
-                    />
+          <Stack.Screen
+            name="ImagesList"
+            component={ImageList}
+            options={{ headerShown: false }}
+          />
 
-                    <Stack.Screen
-                        name="ImageDetails"
-                        component={ImageDetails}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </SafeAreaView>
-    );
+          <Stack.Screen
+            name="ImageDetails"
+            component={ImageDetails}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  );
 }
