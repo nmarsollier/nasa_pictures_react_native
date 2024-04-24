@@ -1,35 +1,19 @@
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
+import React, { useCallback, useState } from 'react';
+import { FlatList, Image, Text, TouchableOpacity } from 'react-native';
 import { DateValue, dayName } from '../api/DateValue';
 import { ImageMetadata, getDBImageMetadata } from '../api/ImagesStorage';
-import { DatesListState, loadDates } from '../models/DatesListModel';
+import { DatesListState, useDatesListState } from './DatesListState';
+import ErrorView from './common/ErrorView';
 import GradientToolbar from './common/GradientToolbar';
 import { Card, ColumnLayout, RowLayout } from './common/Layouts';
+import LoadingView from './common/LoadingView';
 import { DatesListProps } from './common/Navigation';
 import { ColorSchema } from './styles/ColorSchema';
 import { ImageAssets } from './styles/ImageAsets';
-import LoadingView from './common/LoadingView';
-import ErrorView from './common/ErrorView';
-import { createSelector } from '@reduxjs/toolkit';
-
-const datesListSelect = createSelector<any, DatesListState>(
-    (state: any) => state.datesListReducer,
-    (datesListReducer) => { return { ...datesListReducer } }
-)
 
 export default function DatesList(props: DatesListProps) {
-    const dispatch = useDispatch<Dispatch<any>>()
-
-    const datesState = useSelector(datesListSelect)
-
-    useFocusEffect(
-        useCallback(() => {
-            dispatch(loadDates())
-        }, [])
-    )
+    const datesState = useDatesListState()
 
     if (!datesState || datesState.isLoading) {
         return LoadingView()

@@ -1,11 +1,9 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import { FlatList, Pressable, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch } from 'redux';
 import { dayName, hourMinute } from '../api/DateValue';
 import { ImageValue } from '../api/ImageValue';
 import { imageUrl } from '../api/ImagesRepository';
-import { ImagesListState, incrementLoadedCount, loadImages } from '../models/ImagesListModel';
+import { ImagesListState, useImagesListState } from './ImagesListState';
 import { CachedImage } from './common/CachedImage';
 import ErrorView from './common/ErrorView';
 import GradientToolbar from './common/GradientToolbar';
@@ -13,7 +11,6 @@ import { Card, ColumnLayout } from './common/Layouts';
 import LoadingView from './common/LoadingView';
 import { ImagesListProps } from './common/Navigation';
 import { ColorSchema } from './styles/ColorSchema';
-import { createSelector } from '@reduxjs/toolkit';
 
 function ImageCard(props: { image: ImageValue, onLoaded: () => void }) {
     return (
@@ -52,33 +49,22 @@ function ImageCard(props: { image: ImageValue, onLoaded: () => void }) {
     )
 }
 
-const imagesListSelect = createSelector<any, ImagesListState>(
-    (state: any) => state.imagesListReducer,
-    (imagesListReducer) => { return { ...imagesListReducer } }
-)
-
 export default function ImageList(props: ImagesListProps) {
-    const dispatch = useDispatch<Dispatch<any>>()
+    const { state, incrementLoadedCount } = useImagesListState(props.route.params.date)
 
-    const imageState = useSelector(imagesListSelect)
-
-    useEffect(() => {
-        dispatch(loadImages(props.route.params.date))
-    }, [])
-
-    if (!imageState || imageState.isLoading) {
+    if (!state || state.isLoading) {
         return LoadingView()
     }
 
-    if (imageState.isError) {
+    if (state.isError) {
         return ErrorView({ text: 'Error Loading Images' })
 
     }
 
-    return ReadyState(props, dispatch, imageState)
+    return ReadyState(props, state, incrementLoadedCount)
 }
 
-function ReadyState(props: ImagesListProps, dispatch: Dispatch<any>, imageState: ImagesListState) {
+function ReadyState(props: ImagesListProps, imageState: ImagesListState, incrementLoadedCount: () => void) {
     const openAnimation = (images: ImageValue[]) => {
         if (imageState.isFullyLoaded) {
             props.navigation.navigate("ImageDetails", { images: images })
@@ -145,7 +131,7 @@ function ReadyState(props: ImagesListProps, dispatch: Dispatch<any>, imageState:
                 numColumns={2}
                 data={imageState.images}
                 renderItem={({ item }) =>
-                    <ImageCard image={item} onLoaded={() => { dispatch(incrementLoadedCount()) }} />
+                    <ImageCard image={item} onLoaded={() => { incrementLoadedCount() }} />
                 }
             />
         </ColumnLayout>
