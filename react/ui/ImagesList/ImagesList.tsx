@@ -1,16 +1,16 @@
 import React from 'react';
 import { FlatList, Pressable, Text } from 'react-native';
-import { dayName, hourMinute } from '../api/DateValue';
-import { ImageValue } from '../api/ImageValue';
-import { imageUrl } from '../api/ImagesRepository';
+import { dayName, hourMinute } from '../../api/DateValue';
+import { ImageValue } from '../../api/ImageValue';
+import { imageUrl } from '../../api/ImagesRepository';
 import { ImagesListState, useImagesListState } from './ImagesListState';
-import { CachedImage } from './common/CachedImage';
-import ErrorView from './common/ErrorView';
-import GradientToolbar from './common/GradientToolbar';
-import { Card, ColumnLayout } from './common/Layouts';
-import LoadingView from './common/LoadingView';
-import { ImagesListProps } from './common/Navigation';
-import { ColorSchema } from './styles/ColorSchema';
+import { CachedImage } from '../common/CachedImage';
+import ErrorView from '../common/ErrorView';
+import GradientToolbar from '../common/GradientToolbar';
+import { Card, ColumnLayout } from '../common/Layouts';
+import LoadingView from '../common/LoadingView';
+import { ImagesListProps } from '../common/Navigation';
+import { ColorSchema } from '../styles/ColorSchema';
 
 function ImageCard(props: { image: ImageValue; onLoaded: () => void }) {
   return (

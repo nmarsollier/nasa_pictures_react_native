@@ -7,45 +7,55 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 import { setupAxios } from './react/config/AxiosConfig';
-import DatesList from './react/ui/DatesList';
-import { ImageDetails } from './react/ui/ImageDetails';
-import ImageList from './react/ui/ImagesList';
+import DatesList from './react/ui/DatesList/DatesList';
+import { datesListReducer } from './react/ui/DatesList/DatesListState';
+import { ImageDetails } from './react/ui/ImageAnimation/ImageDetails';
+import ImageList from './react/ui/ImagesList/ImagesList';
 import { RootStackParamList } from './react/ui/common/Navigation';
 import { ColorSchema } from './react/ui/styles/ColorSchema';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+export const sotore = configureStore({
+  reducer: combineReducers({ datesListReducer })
+})
+
 export default function App() {
   setupAxios()
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar
-        backgroundColor={ColorSchema.lightBlueBackground}
-      />
+    <Provider store={sotore} >
 
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="DatesList"
-            component={DatesList}
-            options={{ headerShown: false }}
-          />
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar
+          backgroundColor={ColorSchema.lightBlueBackground}
+        />
 
-          <Stack.Screen
-            name="ImagesList"
-            component={ImageList}
-            options={{ headerShown: false }}
-          />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="DatesList"
+              component={DatesList}
+              options={{ headerShown: false }}
+            />
 
-          <Stack.Screen
-            name="ImageDetails"
-            component={ImageDetails}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+            <Stack.Screen
+              name="ImagesList"
+              component={ImageList}
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="ImageDetails"
+              component={ImageDetails}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </Provider>
   );
 }

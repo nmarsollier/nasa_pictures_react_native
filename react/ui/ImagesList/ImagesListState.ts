@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ImageValue } from '../api/ImageValue';
-import { fetchImages } from '../api/ImagesRepository';
-import { getDBImageList, storeDBImageList, storeDBImageMetadata } from '../api/ImagesStorage';
+import { ImageValue } from '../../api/ImageValue';
+import { fetchImages } from '../../api/ImagesRepository';
+import { getDBImageList, storeDBImageList, storeDBImageMetadata } from '../../api/ImagesStorage';
 
 export interface ImagesListState {
   date: string;

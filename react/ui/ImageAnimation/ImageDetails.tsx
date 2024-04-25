@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
-import { imageUrl } from '../api/ImagesRepository';
-import { ImageDetailsProps } from './common/Navigation';
-import { ColorSchema } from './styles/ColorSchema';
-import { buildImageUrl } from '../api/ImageCache';
+import { imageUrl } from '../../api/ImagesRepository';
+import { ImageDetailsProps } from '../common/Navigation';
+import { ColorSchema } from '../styles/ColorSchema';
+import { buildImageUrl } from '../../api/ImageCache';
 
 export function ImageDetails(props: ImageDetailsProps) {
   const images = props.route.params.images.map((i) => {

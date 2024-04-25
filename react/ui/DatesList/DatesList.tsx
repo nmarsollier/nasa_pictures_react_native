@@ -1,19 +1,36 @@
 import { useFocusEffect } from '@react-navigation/native';
+import { Dispatch, createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useState } from 'react';
 import { FlatList, Image, Text, TouchableOpacity } from 'react-native';
-import { DateValue, dayName } from '../api/DateValue';
-import { ImageMetadata, getDBImageMetadata } from '../api/ImagesStorage';
-import { DatesListState, useDatesListState } from './DatesListState';
-import ErrorView from './common/ErrorView';
-import GradientToolbar from './common/GradientToolbar';
-import { Card, ColumnLayout, RowLayout } from './common/Layouts';
-import LoadingView from './common/LoadingView';
-import { DatesListProps } from './common/Navigation';
-import { ColorSchema } from './styles/ColorSchema';
-import { ImageAssets } from './styles/ImageAsets';
+import { useDispatch, useSelector } from 'react-redux';
+import { DateValue, dayName } from '../../api/DateValue';
+import { ImageMetadata, getDBImageMetadata } from '../../api/ImagesStorage';
+import ErrorView from '../common/ErrorView';
+import GradientToolbar from '../common/GradientToolbar';
+import { Card, ColumnLayout, RowLayout } from '../common/Layouts';
+import LoadingView from '../common/LoadingView';
+import { DatesListProps } from '../common/Navigation';
+import { ColorSchema } from '../styles/ColorSchema';
+import { ImageAssets } from '../styles/ImageAsets';
+import { DatesListState, loadDates } from './DatesListState';
+
+const datesListSelect = createSelector<any, DatesListState>(
+  (state: any) => state.datesListReducer,
+  (datesListReducer) => {
+    return { ...datesListReducer };
+  },
+);
 
 export default function DatesList(props: DatesListProps) {
-  const datesState = useDatesListState();
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  const datesState = useSelector(datesListSelect);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(loadDates());
+    }, []),
+  );
 
   if (!datesState || datesState.isLoading) {
     return LoadingView();
