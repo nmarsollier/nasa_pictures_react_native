@@ -1,8 +1,7 @@
 import { PayloadAction, ThunkDispatch, configureStore, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchDates } from '../api/DatesRepository'
-import { getDBDates, storeDBDates } from '../api/DatesStorage'
-import { DateValue } from '../api/DateValue'
-import { sotore } from '../../App'
+import { fetchDates } from '../../api/DatesRepository'
+import { getDBDates, storeDBDates } from '../../api/DatesStorage'
+import { DateValue } from '../../api/DateValue'
 
 export interface DatesListState {
   isError: boolean,

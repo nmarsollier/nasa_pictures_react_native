@@ -7,22 +7,20 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { combineReducers } from 'redux';
 import { setupAxios } from './react/config/AxiosConfig';
-import { datesListReducer } from './react/models/DatesListModel';
-import { imagesListReducer } from './react/models/ImagesListModel';
-import DatesList from './react/ui/DatesList';
-import { ImageDetails } from './react/ui/ImageDetails';
-import ImageList from './react/ui/ImagesList';
+import DatesList from './react/ui/DatesList/DatesList';
+import { datesListReducer } from './react/ui/DatesList/DatesListState';
+import { ImageDetails } from './react/ui/ImageAnimation/ImageDetails';
+import ImageList from './react/ui/ImagesList/ImagesList';
 import { RootStackParamList } from './react/ui/common/Navigation';
 import { ColorSchema } from './react/ui/styles/ColorSchema';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const sotore = configureStore({
-  reducer: combineReducers({ datesListReducer, imagesListReducer: imagesListReducer })
+  reducer: combineReducers({ datesListReducer })
 })
 
 export default function App() {
