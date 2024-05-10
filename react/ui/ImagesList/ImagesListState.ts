@@ -86,6 +86,8 @@ export function useImagesListState(date: string) {
         });
       }
     } catch (error) {
+      console.log(error)
+
       setState({
         date,
         isError: true,

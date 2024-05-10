@@ -57,6 +57,8 @@ export const loadDates = () => {
         }
       }
     } catch (error) {
+      console.log(error)
+
       if (!dbDates) {
         dispatch(datesListSlice.actions.update({
           isError: true,

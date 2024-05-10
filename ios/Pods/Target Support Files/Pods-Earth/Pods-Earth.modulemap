@@ -1,0 +1,6 @@
+module Pods_Earth {
+  umbrella header "Pods-Earth-umbrella.h"
+
+  export *
+  module * { export * }
+}

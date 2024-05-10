@@ -1,0 +1,6 @@
+module Pods_Earth_EarthTests {
+  umbrella header "Pods-Earth-EarthTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
